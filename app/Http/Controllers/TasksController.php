@@ -78,11 +78,12 @@ class TasksController extends Controller
     {
         // idの値でメッセージを検索して取得
         $task = Task::findOrFail($id);
-
-        // メッセージ編集ビューでそれを表示
-        return view('tasks.edit', [
-            'task' => $task,
-        ]);
+        if (\Auth::id() === $task->user_id) {
+            // メッセージ詳細ビューでそれを表示
+            return view('tasks.edit', [
+                'task' => $task,
+            ]);
+        }
     }
 
     /**
@@ -96,13 +97,12 @@ class TasksController extends Controller
             'content' => 'required|max:255',
         ]);
 
-        // idの値でメッセージを検索して取得
         $task = Task::findOrFail($id);
-        // メッセージを更新
-        $task->status = $request->status;    // 追加
-        $task->content = $request->content;
-        $task->save();
-
+        if (\Auth::id() === $task->user_id) {
+            $task->status = $request->status;    // 追加
+            $task->content = $request->content;
+            $task->save();
+        }
         // トップページへリダイレクトさせる
         return redirect('/');
     }
@@ -122,8 +122,7 @@ class TasksController extends Controller
                 ->with('success','Delete Successful');
         }
 
-        // 前のURLへリダイレクトさせる
-        return back()
+        return redirect('/')
             ->with('Delete Failed');
     }
 }
