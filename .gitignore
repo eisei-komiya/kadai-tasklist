@@ -7,6 +7,10 @@
 /vendor
 .env
 .env-local
+<<<<<<< HEAD
+=======
+.env-deploy
+>>>>>>> refs/remotes/origin/main
 .env.backup
 .env.production
 .phpunit.result.cache

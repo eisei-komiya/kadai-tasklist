@@ -121,7 +121,6 @@ class TasksController extends Controller
             return redirect('/')
                 ->with('success','Delete Successful');
         }
-
         return redirect('/')
             ->with('Delete Failed');
     }
