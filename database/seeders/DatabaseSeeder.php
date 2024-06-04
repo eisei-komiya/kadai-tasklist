@@ -12,6 +12,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-
+        $test = User::factory(2)->create(); // DBに追加する
     }
 }
